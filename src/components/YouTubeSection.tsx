@@ -11,7 +11,7 @@ export function YouTubeSection() {
               Video Content
             </span>
           </div>
-          <h2 className="text-4xl font-bold text-white mb-4">True Light Highlights</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Videos: True Light Highlights</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Explore inspiring video highlights from the True Light journey and ministry teachings.
           </p>
@@ -78,7 +78,7 @@ export function YouTubeSection() {
               href="https://www.youtube.com/playlist?list=PLITEme3CZeVm3UVzmylEX_0UT0hPKf734"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg"
             >
               <Youtube size={20} />
               View Full Playlist

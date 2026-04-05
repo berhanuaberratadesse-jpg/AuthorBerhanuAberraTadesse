@@ -89,6 +89,9 @@ function App() {
 
   return (
     <div className="min-h-screen">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-amber-500 focus:text-white focus:rounded">
+        Skip to main content
+      </a>
       <ChatBot />
       <ProductSelector
         isOpen={productSelectorOpen}
@@ -98,32 +101,36 @@ function App() {
       <Checkout isOpen={cartOpen} onClose={() => setCartOpen(false)} />
       <div className="min-h-screen">
         <header className="fixed top-0 left-0 right-0 bg-gradient-to-r from-slate-900/95 to-slate-800/95 backdrop-blur-md shadow-lg z-50 border-b border-amber-500/30">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Main navigation">
           <div className="flex justify-between items-center">
-            <img src="/image.png" alt="Berhanu Aberra Tadesse" className="h-12" />
+            <a href="#home" className="flex items-center">
+              <img src="/image.png" alt="Berhanu Aberra Tadesse - Home" className="h-12" />
+            </a>
             <div className="hidden md:flex space-x-8">
-              <a href="#home" className="text-gray-300 hover:text-amber-400 transition-colors">Home</a>
-              <a href="#about" className="text-gray-300 hover:text-amber-400 transition-colors">About</a>
-              <a href="#book" className="text-gray-300 hover:text-amber-400 transition-colors">The Book</a>
-              <a href="#videos" className="text-gray-300 hover:text-amber-400 transition-colors">Videos</a>
-              <a href="#testimonials" className="text-gray-300 hover:text-amber-400 transition-colors">Reviews</a>
-              <a href="#contact" className="text-gray-300 hover:text-amber-400 transition-colors">Contact</a>
+              <a href="#home" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Home</a>
+              <a href="#about" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">About</a>
+              <a href="#book" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">The Book</a>
+              <a href="#videos" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Videos</a>
+              <a href="#testimonials" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Reviews</a>
+              <a href="#contact" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Contact</a>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setProductSelectorOpen(true)}
-                className="hidden md:inline-flex items-center justify-center px-6 py-2 bg-amber-500 text-white font-bold text-sm rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="hidden md:inline-flex items-center justify-center px-6 py-2 bg-amber-500 text-white font-bold text-sm rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                aria-label="Open product selector to order the book"
               >
                 <Book className="mr-2" size={18} />
                 Order Now
               </button>
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative p-2 text-gray-300 hover:text-amber-400 transition-colors"
+                className="relative p-2 text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded transition-colors"
+                aria-label={`Shopping cart with ${totalItems} item${totalItems !== 1 ? 's' : ''}`}
               >
                 <ShoppingCart size={24} />
                 {totalItems > 0 && (
-                  <span className="absolute top-0 right-0 bg-amber-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="absolute top-0 right-0 bg-amber-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center" aria-hidden="false">
                     {totalItems}
                   </span>
                 )}
@@ -133,7 +140,7 @@ function App() {
         </nav>
       </header>
 
-      <main className="pt-16">
+      <main id="main" className="pt-16">
         <section id="home" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 md:py-32">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utb3BhY2l0eT0iLjA1IiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9zdmc+')] opacity-20"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -142,16 +149,16 @@ function App() {
                 <div className="inline-block mb-4 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full">
                   <span className="text-amber-400 text-sm font-semibold">New Release</span>
                 </div>
-                <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                   True Light
-                </h2>
+                </h1>
                 <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                   A profound journey of spiritual awakening, faith, and the discovery of freedom through Christ.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={() => setProductSelectorOpen(true)}
-                    className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                   >
                     <Book className="mr-2" size={22} />
                     Order Now
@@ -160,14 +167,14 @@ function App() {
                     href="https://www.amazon.com/True-Light-Berhanu-Tadesse/dp/B0DT525949"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                   >
                     <Book className="mr-2" size={22} />
                     Order on Amazon
                   </a>
                   <a
                     href="#about"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-all border border-white/20"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all border border-white/20"
                   >
                     Learn More
                   </a>
@@ -189,7 +196,7 @@ function App() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
                 <h2 className="text-4xl font-bold text-white mb-6">About The Author</h2>
-                <h3 className="text-2xl font-semibold text-amber-400 mb-4">Berhanu Aberra Tadesse</h3>
+                <h3 className="text-2xl font-semibold text-amber-400 mb-4" id="author-name">Berhanu Aberra Tadesse</h3>
                 <div className="space-y-4 text-gray-200 leading-relaxed">
                   <p>
                     The author, Berhanu Aberra Tadesse, is not only a writer but also a seeker, a teacher, and an inspiration. Born in Ethiopia, Berhanu's life journey took him from a career in aviation maintenance to a profound spiritual awakening that reshaped his life.
@@ -219,7 +226,7 @@ function App() {
         <section id="book" className="py-20 bg-slate-800/40 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-white mb-4">The Book</h2>
+              <h2 className="text-4xl font-bold text-white mb-4">The Book: True Light</h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 A transformative story of faith, struggle, and the journey to discovering true freedom in Christ.
               </p>
@@ -262,7 +269,7 @@ function App() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <button
                       onClick={() => setProductSelectorOpen(true)}
-                      className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                     >
                       <Book className="mr-2" size={22} />
                       Order Now
@@ -271,7 +278,7 @@ function App() {
                       href="https://www.amazon.com/True-Light-Berhanu-Tadesse/dp/B0DT525949"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                     >
                       <Book className="mr-2" size={22} />
                       Order on Amazon
@@ -288,7 +295,7 @@ function App() {
         <section id="testimonials" className="py-20 bg-slate-800/40 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">What Our Readers Say</h2>
+              <h2 className="text-4xl font-bold text-white mb-4">Testimonials: What Our Readers Say</h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Discover how True Light has transformed lives and inspired spiritual growth.
               </p>
@@ -303,7 +310,7 @@ function App() {
                     <div className="flex items-center gap-4 mb-4">
                       <img
                         src={testimonial.image}
-                        alt={testimonial.name}
+                        alt={`${testimonial.name} - ${testimonial.title}`}
                         className="w-14 h-14 rounded-full object-cover border-2 border-amber-400"
                       />
                       <div>
@@ -311,7 +318,9 @@ function App() {
                         <p className="text-sm text-amber-400 font-medium">{testimonial.title}</p>
                       </div>
                     </div>
-                    <StarRating rating={testimonial.rating} />
+                    <div aria-label={`${testimonial.rating} out of 5 stars`}>
+                      <StarRating rating={testimonial.rating} />
+                    </div>
                     <p className="text-gray-200 leading-relaxed mt-4">
                       "{testimonial.text}"
                     </p>
@@ -324,13 +333,13 @@ function App() {
 
         <section id="contact" className="py-20 bg-slate-900/90 text-white backdrop-blur-sm">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-bold mb-6">Get In Touch</h2>
+            <h2 className="text-4xl font-bold mb-6">Contact: Get In Touch</h2>
             <p className="text-xl text-gray-300 mb-8">
               Have questions or want to connect? Reach out to learn more about "True Light" and Berhanu's ministry work.
             </p>
             <a
               href="mailto:contact@authorberhanutadesse.com"
-              className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition-all transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg"
             >
               <Mail className="mr-2" size={20} />
               Send a Message
@@ -344,7 +353,7 @@ function App() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="mb-8">
-                <img src="/image.png" alt="Berhanu Aberra Tadesse" className="h-16 mb-4" />
+                <img src="/image.png" alt="Berhanu Aberra Tadesse Logo" className="h-16 mb-4" />
                 <p className="text-sm text-gray-300 leading-relaxed">
                   Berhanu Aberra Tadesse is a voice of transformation, encouraging people to seek the truth and light through faith. As an author, a teacher, and a Bible study leader, he is devoted to revealing the path of spiritual growth and helping others find their calling.
                 </p>
@@ -354,12 +363,12 @@ function App() {
             <div>
               <h4 className="text-amber-400 font-bold text-lg mb-6">Useful Links</h4>
               <ul className="space-y-3">
-                <li><a href="#home" className="text-gray-300 hover:text-amber-400 transition-colors text-sm">Home</a></li>
-                <li><a href="#about" className="text-gray-300 hover:text-amber-400 transition-colors text-sm">About Me</a></li>
-                <li><a href="#book" className="text-gray-300 hover:text-amber-400 transition-colors text-sm">About Book</a></li>
-                <li><a href="#videos" className="text-gray-300 hover:text-amber-400 transition-colors text-sm">Videos</a></li>
-                <li><a href="#testimonials" className="text-gray-300 hover:text-amber-400 transition-colors text-sm">Testimonials</a></li>
-                <li><a href="#contact" className="text-gray-300 hover:text-amber-400 transition-colors text-sm">Contact Us</a></li>
+                <li><a href="#home" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors text-sm">Home</a></li>
+                <li><a href="#about" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors text-sm">About Me</a></li>
+                <li><a href="#book" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors text-sm">About Book</a></li>
+                <li><a href="#videos" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors text-sm">Videos</a></li>
+                <li><a href="#testimonials" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors text-sm">Testimonials</a></li>
+                <li><a href="#contact" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors text-sm">Contact Us</a></li>
               </ul>
             </div>
 
@@ -371,8 +380,8 @@ function App() {
                   href="https://www.facebook.com/Berhanutedesseofficial/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-slate-700 hover:bg-amber-500 text-white p-3 rounded-full transition-all transform hover:scale-110"
-                  title="Facebook"
+                  className="bg-slate-700 hover:bg-amber-500 text-white p-3 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-110"
+                  aria-label="Visit our Facebook page"
                 >
                   <Facebook size={20} />
                 </a>
@@ -380,8 +389,8 @@ function App() {
                   href="https://www.linkedin.com/company/berhanu-tedesse/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-slate-700 hover:bg-amber-500 text-white p-3 rounded-full transition-all transform hover:scale-110"
-                  title="LinkedIn"
+                  className="bg-slate-700 hover:bg-amber-500 text-white p-3 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-110"
+                  aria-label="Visit our LinkedIn page"
                 >
                   <Linkedin size={20} />
                 </a>
@@ -389,8 +398,8 @@ function App() {
                   href="https://www.pinterest.com/berhanutedesse/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-slate-700 hover:bg-amber-500 text-white p-3 rounded-full transition-all transform hover:scale-110"
-                  title="Pinterest"
+                  className="bg-slate-700 hover:bg-amber-500 text-white p-3 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-110"
+                  aria-label="Visit our Pinterest page"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12s1.5-2 4-2c2.6 0 3 2 3 4s-.4 3-2 4c-1.5 1-3.5 0-3.5 0"></path><path d="M12 16v2"></path></svg>
                 </a>
@@ -403,7 +412,7 @@ function App() {
               <div className="space-y-4">
                 <a
                   href="mailto:info@authorberhanutadesse.com"
-                  className="flex items-center gap-3 text-gray-300 hover:text-amber-400 transition-colors group"
+                  className="flex items-center gap-3 text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors group"
                 >
                   <div className="bg-slate-700 group-hover:bg-amber-500 p-2 rounded-full transition-colors">
                     <Mail size={18} />
@@ -415,7 +424,7 @@ function App() {
                 </a>
                 <a
                   href="tel:+14258794630"
-                  className="flex items-center gap-3 text-gray-300 hover:text-amber-400 transition-colors group"
+                  className="flex items-center gap-3 text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors group"
                 >
                   <div className="bg-slate-700 group-hover:bg-amber-500 p-2 rounded-full transition-colors">
                     <Phone size={18} />
