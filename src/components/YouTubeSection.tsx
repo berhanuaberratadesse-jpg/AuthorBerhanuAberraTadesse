@@ -18,13 +18,24 @@ export function YouTubeSection() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-6">
             <div className="rounded-xl overflow-hidden shadow-2xl border border-amber-500/20 aspect-video bg-slate-900">
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/videoseries?list=PLITEme3CZeVm3UVzmylEX_0UT0hPKf734"
-                title="True Light YouTube Playlist"
+                src="https://www.youtube.com/embed/b_arH-hgo5Y"
+                title="True Light Video 1"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-2xl border border-amber-500/20 aspect-video bg-slate-900">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/98PR54TB9xo"
+                title="True Light Video 2"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
