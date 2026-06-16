@@ -19,80 +19,86 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" aria-label="Payment form">
       <div>
         <button
           type="button"
           onClick={onBack}
-          className="flex items-center text-amber-400 hover:text-amber-500 font-semibold mb-4"
+          className="flex items-center text-amber-400 hover:text-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-2 py-1 font-semibold mb-4 transition"
+          aria-label="Go back to delivery information"
         >
           <ChevronLeft size={20} />
           Back to delivery
         </button>
         <h3 className="text-xl font-bold text-white">Payment</h3>
         <p className="text-sm text-gray-300 mt-2 flex items-center gap-2">
-          <Lock size={16} />
+          <Lock size={16} aria-hidden="true" />
           All transactions are secure and encrypted
         </p>
       </div>
 
-      <div className="space-y-3">
-        <label
-          className={`flex items-center justify-between p-4 border-2 rounded-t-lg cursor-pointer transition ${
-            selectedMethod === 'credit_card'
-              ? 'border-amber-500 bg-amber-500/20'
-              : 'border-slate-600 hover:border-amber-400 bg-slate-700/30'
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <input
-              type="radio"
-              name="payment"
-              value="credit_card"
-              checked={selectedMethod === 'credit_card'}
-              onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
-              className="w-4 h-4 text-amber-500 focus:ring-amber-500"
-            />
-            <span className="font-semibold text-white">Credit Card</span>
-          </div>
-          <div className="flex gap-2">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" className="h-6" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-6" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg" alt="Amex" className="h-6" />
-          </div>
-        </label>
+      <fieldset>
+        <legend className="sr-only">Select payment method</legend>
+        <div className="space-y-3">
+          <label
+            className={`flex items-center justify-between p-4 border-2 rounded-t-lg cursor-pointer transition ${
+              selectedMethod === 'credit_card'
+                ? 'border-amber-500 bg-amber-500/20'
+                : 'border-slate-600 hover:border-amber-400 bg-slate-700/30'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <input
+                type="radio"
+                name="payment"
+                value="credit_card"
+                checked={selectedMethod === 'credit_card'}
+                onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
+                className="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+              />
+              <span className="font-semibold text-white">Credit Card</span>
+            </div>
+            <div className="flex gap-2" aria-hidden="true">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="" className="h-6" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="" className="h-6" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg" alt="" className="h-6" />
+            </div>
+          </label>
 
         {selectedMethod === 'credit_card' && (
           <div className="p-4 border-2 border-t-0 border-amber-500 rounded-b-lg bg-slate-700/50 space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-200 mb-2">
+              <label htmlFor="cardNumber" className="block text-sm font-semibold text-gray-200 mb-2">
                 Card number
               </label>
               <div className="relative">
                 <input
+                  id="cardNumber"
                   type="text"
                   placeholder="1234 5678 9012 3456"
                   className="w-full px-4 py-3 border border-slate-500 bg-slate-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
-                <CreditCard className="absolute right-3 top-3 text-gray-400" size={20} />
+                <CreditCard className="absolute right-3 top-3 text-gray-400" size={20} aria-hidden="true" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-200 mb-2">
+                <label htmlFor="expirationDate" className="block text-sm font-semibold text-gray-200 mb-2">
                   Expiration date (MM/YY)
                 </label>
                 <input
+                  id="expirationDate"
                   type="text"
                   placeholder="MM / YY"
                   className="w-full px-4 py-3 border border-slate-500 bg-slate-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-200 mb-2">
+                <label htmlFor="securityCode" className="block text-sm font-semibold text-gray-200 mb-2">
                   Security code
                 </label>
                 <input
+                  id="securityCode"
                   type="text"
                   placeholder="CVV"
                   className="w-full px-4 py-3 border border-slate-500 bg-slate-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
@@ -100,10 +106,11 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
               </div>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-200 mb-2">
+              <label htmlFor="nameOnCard" className="block text-sm font-semibold text-gray-200 mb-2">
                 Name on card
               </label>
               <input
+                id="nameOnCard"
                 type="text"
                 placeholder="Full name"
                 className="w-full px-4 py-3 border border-slate-500 bg-slate-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
@@ -126,14 +133,14 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
               value="stripe"
               checked={selectedMethod === 'stripe'}
               onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
-              className="w-4 h-4 text-amber-500 focus:ring-amber-500"
+              className="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
             />
             <div>
               <div className="font-semibold text-white">Stripe Payment Link</div>
               <div className="text-xs text-gray-300">Secure payment with Stripe</div>
             </div>
           </div>
-          <ExternalLink size={20} className="text-amber-400" />
+          <ExternalLink size={20} className="text-amber-400" aria-hidden="true" />
         </label>
 
         <label
@@ -150,14 +157,14 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
               value="shop_pay"
               checked={selectedMethod === 'shop_pay'}
               onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
-              className="w-4 h-4 text-amber-500 focus:ring-amber-500"
+              className="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
             />
             <div>
               <div className="font-semibold text-white">Shop Pay</div>
               <div className="text-xs text-gray-300">Pay in full or in installments</div>
             </div>
           </div>
-          <div className="bg-amber-600 text-white px-3 py-1 rounded font-bold text-sm">
+          <div className="bg-amber-600 text-white px-3 py-1 rounded font-bold text-sm" aria-hidden="true">
             Shop Pay
           </div>
         </label>
@@ -176,11 +183,11 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
               value="paypal"
               checked={selectedMethod === 'paypal'}
               onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
-              className="w-4 h-4 text-amber-500 focus:ring-amber-500"
+              className="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
             />
             <span className="font-semibold text-white">PayPal</span>
           </div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="" className="h-6" aria-hidden="true" />
         </label>
 
         <label
@@ -197,11 +204,11 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
               value="google_pay"
               checked={selectedMethod === 'google_pay'}
               onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
-              className="w-4 h-4 text-amber-500 focus:ring-amber-500"
+              className="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
             />
             <span className="font-semibold text-white">Google Pay</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" aria-hidden="true">
             <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">G</div>
             <span className="font-semibold text-white">Pay</span>
           </div>
@@ -221,25 +228,27 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
               value="venmo"
               checked={selectedMethod === 'venmo'}
               onChange={(e) => setSelectedMethod(e.target.value as PaymentMethod)}
-              className="w-4 h-4 text-amber-500 focus:ring-amber-500"
+              className="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
             />
             <span className="font-semibold text-white">Venmo</span>
           </div>
-          <div className="bg-blue-600 text-white px-3 py-1 rounded font-bold">
+          <div className="bg-blue-600 text-white px-3 py-1 rounded font-bold" aria-hidden="true">
             venmo
           </div>
         </label>
       </div>
+    </fieldset>
 
       <div className="space-y-3">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
+            id="billingAddress"
             checked={useSameForBilling}
             onChange={(e) => setUseSameForBilling(e.target.checked)}
-            className="mt-1 w-4 h-4 text-amber-500 focus:ring-amber-500 rounded"
+            className="mt-1 w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded"
           />
-          <span className="text-sm text-gray-200">
+          <span htmlFor="billingAddress" className="text-sm text-gray-200">
             Use shipping address as billing address
           </span>
         </label>
@@ -247,11 +256,12 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
+            id="saveInfo"
             checked={saveInfo}
             onChange={(e) => setSaveInfo(e.target.checked)}
-            className="mt-1 w-4 h-4 text-amber-500 focus:ring-amber-500 rounded"
+            className="mt-1 w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded"
           />
-          <span className="text-sm text-gray-200">
+          <span htmlFor="saveInfo" className="text-sm text-gray-200">
             Save my information for a faster checkout
           </span>
         </label>
@@ -259,7 +269,7 @@ export function PaymentForm({ onSubmit, onBack, totalAmount }: PaymentFormProps)
 
       <button
         type="submit"
-        className="w-full bg-amber-500 text-white font-bold py-4 rounded-lg hover:bg-amber-600 transition"
+        className="w-full bg-amber-500 text-white font-bold py-4 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition"
       >
         Pay Now - ${(totalAmount / 100).toFixed(2)}
       </button>

@@ -172,12 +172,12 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
       <div className="bg-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full my-8">
         <div className="sticky top-0 bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6 flex justify-between items-center rounded-t-2xl z-[70]">
           <div className="flex items-center gap-3">
-            <ShoppingCart size={28} />
-            <h2 className="text-2xl font-bold">
+            <ShoppingCart size={28} aria-hidden="true" />
+            <h2 id="checkout-title" className="text-2xl font-bold">
               {checkoutStep === 'cart' && 'Your Cart'}
               {checkoutStep === 'delivery' && 'Delivery Information'}
               {checkoutStep === 'payment' && 'Payment'}
@@ -188,7 +188,8 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
               onClose();
               setCheckoutStep('cart');
             }}
-            className="p-2 hover:bg-white/20 rounded-lg transition"
+            className="p-2 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded-lg transition"
+            aria-label="Close checkout"
           >
             <X size={24} />
           </button>
@@ -216,20 +217,23 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
                             <div className="flex items-center gap-2 mt-3">
                               <button
                                 onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}
-                                className="p-1 hover:bg-slate-600 rounded transition text-white"
+                                className="p-1 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded transition text-white"
+                                aria-label={`Decrease quantity of ${item.name}`}
                               >
                                 <Minus size={16} />
                               </button>
-                              <span className="w-6 text-center font-semibold text-white flex justify-center">{item.quantity}</span>
+                              <span className="w-6 text-center font-semibold text-white flex justify-center" aria-live="polite">{item.quantity}</span>
                               <button
                                 onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}
-                                className="p-1 hover:bg-slate-600 rounded transition text-white"
+                                className="p-1 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded transition text-white"
+                                aria-label={`Increase quantity of ${item.name}`}
                               >
                                 <Plus size={16} />
                               </button>
                               <button
                                 onClick={() => handleRemoveItem(item.productId)}
-                                className="ml-auto p-1 hover:bg-red-900/50 text-red-400 rounded transition"
+                                className="ml-auto p-1 hover:bg-red-900/50 focus:outline-none focus:ring-2 focus:ring-red-400 text-red-400 rounded transition"
+                                aria-label={`Remove ${item.name} from cart`}
                               >
                                 <Trash2 size={18} />
                               </button>
@@ -241,7 +245,7 @@ export function Checkout({ isOpen, onClose }: CheckoutProps) {
 
                     <button
                       onClick={() => setCheckoutStep('delivery')}
-                      className="w-full bg-amber-500 text-white font-bold py-4 rounded-lg hover:bg-amber-600 transition"
+                      className="w-full bg-amber-500 text-white font-bold py-4 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-800 transition"
                     >
                       Proceed to Checkout
                     </button>

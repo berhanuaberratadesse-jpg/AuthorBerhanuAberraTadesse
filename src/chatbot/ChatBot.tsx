@@ -56,15 +56,16 @@ export const ChatBot: React.FC = () => {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-0 right-0 m-4 w-96 h-96 md:w-96 md:h-[32rem] bg-slate-900 rounded-2xl shadow-2xl flex flex-col border border-amber-500/30 z-40 animate-in">
+        <div className="fixed bottom-0 right-0 m-4 w-96 h-96 md:w-96 md:h-[32rem] bg-slate-900 rounded-2xl shadow-2xl flex flex-col border border-amber-500/30 z-40 animate-in" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
           <div className="flex items-center justify-between p-4 bg-gradient-to-r from-amber-500 to-amber-600 rounded-t-2xl text-white">
             <div>
-              <h3 className="font-bold text-lg">True Light Assistant</h3>
+              <h3 id="chatbot-title" className="font-bold text-lg">True Light Assistant</h3>
               <p className="text-xs text-amber-50">Ask about the book, faith, or contact info</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-white/20 p-2 rounded-full transition-colors"
+              className="hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white p-2 rounded-full transition-colors"
+              aria-label="Close chat assistant"
             >
               <X size={20} />
             </button>
@@ -103,7 +104,7 @@ export const ChatBot: React.FC = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSendMessage} className="p-4 border-t border-slate-700 bg-slate-800">
+          <form onSubmit={handleSendMessage} className="p-4 border-t border-slate-700 bg-slate-800" aria-label="Chat message form">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -112,11 +113,13 @@ export const ChatBot: React.FC = () => {
                 placeholder="Ask about the book, faith, or contact..."
                 className="flex-1 px-4 py-2 bg-slate-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
                 disabled={isLoading}
+                aria-label="Type your message"
               />
               <button
                 type="submit"
                 disabled={isLoading || !inputValue.trim()}
-                className="bg-amber-500 hover:bg-amber-600 disabled:bg-gray-600 text-white p-2 rounded-lg transition-colors"
+                className="bg-amber-500 hover:bg-amber-600 disabled:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-800 text-white p-2 rounded-lg transition-colors"
+                aria-label="Send message"
               >
                 <Send size={18} />
               </button>
@@ -127,7 +130,9 @@ export const ChatBot: React.FC = () => {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-110 z-50 flex items-center justify-center group"
+        className="fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all transform hover:scale-110 z-50 flex items-center justify-center group"
+        aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
+        aria-expanded={isOpen}
       >
         <MessageCircle size={24} />
         <span className="absolute bottom-full right-0 mb-3 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-amber-500/30">
