@@ -1,0 +1,23 @@
+# Query: info@authorberhanutadesse.com
+# Flags: WordMatch RegExp
+# ContextLines: 1
+
+4 results - 2 files
+
+src/App.tsx:
+  413                  <a
+  414:                   href="mailto:truelight@berhanutadesse.com"
+  415                    className="flex items-center gap-3 text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors group"
+
+  421                      <p className="text-gray-400 text-xs">Email</p>
+  422:                     <p>truelight@berhanutadesse.com</p>
+  423                    </div>
+
+src/chatbot/knowledge-base.ts:
+  36    contact: {
+  37:     email: 'truelight@berhanutadesse.com',
+  38      phone: '+1-425-879-4630',
+
+  76      question: 'How can I contact Berhanu?',
+  77:     answer: `You can contact Berhanu through multiple channels:\n• Email: truelight@berhanutadesse.com\n• Phone: +1-425-879-4630\n• Facebook: Facebook.com/Berhanutedesseofficial\n\nFeel free to reach out with questions, comments, or to discuss the book and ministry work!`
+  78    },

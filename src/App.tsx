@@ -1,4 +1,4 @@
-import { Book, Mail, Heart, Star, Facebook, Linkedin, Phone, ShoppingCart } from 'lucide-react';
+import { Book, Mail, Heart, Star, Facebook, Linkedin, Phone, ShoppingCart, Lock } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { ChatBot } from './chatbot/ChatBot';
 import { Checkout } from './components/Checkout';
@@ -6,6 +6,10 @@ import { ProductSelector } from './components/ProductSelector';
 import { YouTubeSection } from './components/YouTubeSection';
 import { PaymentPage } from './pages/PaymentPage';
 import { cartStore } from './store/cartStore';
+import { Audiobook } from './pages/Audiobook';
+import { Courses } from './pages/Courses';
+import { Blog } from './pages/Blog';
+import { AdminBlog } from './pages/AdminBlog';
 
 const testimonials = [
   {
@@ -71,17 +75,24 @@ function StarRating({ rating }: { rating: number }) {
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [productSelectorOpen, setProductSelectorOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'payment'>('home');
-  const totalItems = cartStore.getTotalItems();
+const [currentPage, setCurrentPage] = useState<'home' | 'payment' | 'audiobook' | 'courses' | 'blog' | 'admin'>('home');  const totalItems = cartStore.getTotalItems();
 
   useEffect(() => {
     const path = window.location.pathname;
     if (path === '/payment') {
       setCurrentPage('payment');
+    } else if (path === '/audiobook') {
+      setCurrentPage('audiobook');
+    } else if (path === '/courses') {
+      setCurrentPage('courses');
+    } else if (path === '/blog') {
+      setCurrentPage('blog');
+    } else if (path === '/admin') {       // <--- ADD THIS LINE
+      setCurrentPage('admin');            // <--- ADD THIS LINE
     } else {
       setCurrentPage('home');
-    }
-  }, []);
+  }
+}, []);
 
   if (currentPage === 'payment') {
     return <PaymentPage />;
@@ -106,15 +117,24 @@ function App() {
             <a href="#home" className="flex items-center">
               <img src="/image.png" alt="Berhanu Aberra Tadesse - Home" className="h-12" />
             </a>
-            <div className="hidden md:flex space-x-8">
-              <a href="#home" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Home</a>
-              <a href="#about" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">About</a>
-              <a href="#book" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">The Book</a>
-              <a href="#videos" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Videos</a>
-              <a href="#testimonials" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Reviews</a>
-              <a href="#contact" className="text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-2 py-1 transition-colors">Contact</a>
+            <div className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-8 space-x-1 lg:space-x-2">
+              <a href="/" onClick={(e) => { e.preventDefault(); window.history.pushState({}, '', '/'); setCurrentPage('home'); window.scrollTo(0, 0); }} className={`px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide transition-all duration-200 ${currentPage === 'home' ? 'text-amber-400 bg-slate-800' : 'text-gray-300 hover:text-white hover:bg-slate-800/50'}`}>Home</a>
+              <a href="#about" onClick={(e) => { if (currentPage !== 'home') { e.preventDefault(); window.history.pushState({}, '', '/'); setCurrentPage('home'); setTimeout(() => document.getElementById('about')?.scrollIntoView(), 100); } }} className="px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide text-gray-300 hover:text-white hover:bg-slate-800/50 transition-all duration-200">About</a>
+              <a href="#book" onClick={(e) => { if (currentPage !== 'home') { e.preventDefault(); window.history.pushState({}, '', '/'); setCurrentPage('home'); setTimeout(() => document.getElementById('book')?.scrollIntoView(), 100); } }} className="px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide text-gray-300 hover:text-white hover:bg-slate-800/50 transition-all duration-200">Book</a>
+              
+              {/* Divider */}
+              <div className="h-5 w-px bg-slate-700 mx-2"></div>
+              
+              <a href="/audiobook" onClick={(e) => { e.preventDefault(); window.history.pushState({}, '', '/audiobook'); setCurrentPage('audiobook'); window.scrollTo(0, 0); }} className={`px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide transition-all duration-200 ${currentPage === 'audiobook' ? 'text-amber-400 bg-slate-800' : 'text-gray-300 hover:text-white hover:bg-slate-800/50'}`}>Audiobook</a>
+              <a href="/courses" onClick={(e) => { e.preventDefault(); window.history.pushState({}, '', '/courses'); setCurrentPage('courses'); window.scrollTo(0, 0); }} className={`px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide transition-all duration-200 ${currentPage === 'courses' ? 'text-amber-400 bg-slate-800' : 'text-gray-300 hover:text-white hover:bg-slate-800/50'}`}>Courses</a>
+              <a href="/blog" onClick={(e) => { e.preventDefault(); window.history.pushState({}, '', '/blog'); setCurrentPage('blog'); window.scrollTo(0, 0); }} className={`px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide transition-all duration-200 ${currentPage === 'blog' ? 'text-amber-400 bg-slate-800' : 'text-gray-300 hover:text-white hover:bg-slate-800/50'}`}>Blog</a>
+              
+              {/* Divider */}
+              <div className="h-5 w-px bg-slate-700 mx-2"></div>
+              
+              <a href="#contact" onClick={(e) => { if (currentPage !== 'home') { e.preventDefault(); window.history.pushState({}, '', '/'); setCurrentPage('home'); setTimeout(() => document.getElementById('contact')?.scrollIntoView(), 100); } }} className="px-3 lg:px-4 py-2 rounded-md text-sm font-semibold tracking-wide text-gray-300 hover:text-white hover:bg-slate-800/50 transition-all duration-200">Contact</a>
             </div>
-            <div className="flex items-center gap-3">
+
               <button
                 onClick={() => setProductSelectorOpen(true)}
                 className="hidden md:inline-flex items-center justify-center px-6 py-2 bg-amber-500 text-white font-bold text-sm rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
@@ -136,12 +156,20 @@ function App() {
                 )}
               </button>
             </div>
-          </div>
+          {/* </div> */}
         </nav>
       </header>
 
+
       <main id="main" className="pt-16">
-        <section id="home" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 md:py-32">
+        {currentPage === 'audiobook' && <Audiobook />}
+        {currentPage === 'courses' && <Courses />}
+        {currentPage === 'blog' && <Blog />}
+        {currentPage === 'admin' && <AdminBlog />}
+
+        {currentPage === 'home' && (
+          <>
+            <section id="home" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 md:py-32">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utb3BhY2l0eT0iLjA1IiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9zdmc+')] opacity-20"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -155,26 +183,45 @@ function App() {
                 <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                   A profound journey of spiritual awakening, faith, and the discovery of freedom through Christ.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-wrap gap-4 mt-6">
                   <button
                     onClick={() => setProductSelectorOpen(true)}
-                    className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-amber-500 text-white font-bold rounded-lg hover:bg-amber-600 focus:outline-none transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
                   >
-                    <Book className="mr-2" size={22} />
+                    <Book className="mr-2" size={20} />
                     Order Now
                   </button>
                   <a
                     href="https://www.amazon.com/True-Light-Berhanu-Tadesse/dp/B0DT525949"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-[#FF9900] text-white font-bold rounded-lg hover:bg-[#FF9900]/90 transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
                   >
-                    <Book className="mr-2" size={22} />
-                    Order on Amazon
+                    <Book className="mr-2" size={20} />
+                    Amazon
                   </a>
                   <a
+                    href="https://www.kobo.com/us/en/ebook/true-light-7?sId=dc15a771-1db5-437a-b56d-20b9d4d747c8&ssId=bQW1sk9Bv3L3fDiyEYCB2&cPos=1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-[#BF0000] text-white font-bold rounded-lg hover:bg-[#BF0000]/90 transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
+                  >
+                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    Kobo
+                  </a>
+                  <a
+                    href="https://www.barnesandnoble.com/w/true-light-berhanu-tadesse/1146870400?ean=9798891223998"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-[#0d3b2b] text-white font-bold rounded-lg hover:bg-[#0d3b2b]/90 transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
+                  >
+                    <Book className="mr-2" size={20} />
+                    B&N
+                  </a>
+                  
+                  <a
                     href="#about"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all border border-white/20"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-all border border-white/20 w-full sm:w-auto"
                   >
                     Learn More
                   </a>
@@ -266,23 +313,42 @@ function App() {
                       <p className="text-sm text-gray-300">A message of liberation and new beginnings</p>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-wrap gap-4 mt-6">
                     <button
                       onClick={() => setProductSelectorOpen(true)}
-                      className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-amber-500 text-white font-bold rounded-lg hover:bg-amber-600 focus:outline-none transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
                     >
-                      <Book className="mr-2" size={22} />
+                      <Book className="mr-2" size={20} />
                       Order Now
                     </button>
                     <a
                       href="https://www.amazon.com/True-Light-Berhanu-Tadesse/dp/B0DT525949"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-[#FF9900] text-white font-bold rounded-lg hover:bg-[#FF9900]/90 transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
                     >
-                      <Book className="mr-2" size={22} />
-                      Order on Amazon
+                      <Book className="mr-2" size={20} />
+                      Amazon
                     </a>
+                    <a
+                      href="https://www.kobo.com/us/en/ebook/true-light-7?sId=dc15a771-1db5-437a-b56d-20b9d4d747c8&ssId=bQW1sk9Bv3L3fDiyEYCB2&cPos=1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-[#BF0000] text-white font-bold rounded-lg hover:bg-[#BF0000]/90 transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
+                    >
+                      <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                      Kobo
+                    </a>
+                    <a
+                      href="https://www.barnesandnoble.com/w/true-light-berhanu-tadesse/1146870400?ean=9798891223998"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-[#0d3b2b] text-white font-bold rounded-lg hover:bg-[#0d3b2b]/90 transition-all transform hover:scale-105 shadow-md flex-1 min-w-[140px]"
+                    >
+                      <Book className="mr-2" size={20} />
+                      B&N
+                    </a>
+                    
                   </div>
                 </div>
               </div>
@@ -331,21 +397,72 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="py-20 bg-slate-900/90 text-white backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-bold mb-6">Contact: Get In Touch</h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Have questions or want to connect? Reach out to learn more about "True Light" and Berhanu's ministry work.
-            </p>
-            <a
-              href="mailto:contact@authorberhanutadesse.com"
-              className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg"
-            >
-              <Mail className="mr-2" size={20} />
-              Send a Message
-            </a>
+              <section id="contact" className="py-20 bg-slate-900/90 text-white backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-6">Contact: Get In Touch</h2>
+              <p className="text-xl text-gray-300">
+                Have questions or want to connect? Reach out to learn more about "True Light" and Berhanu's ministry work.
+              </p>
+            </div>
+            
+            <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 max-w-2xl mx-auto">
+              <form action="https://formsubmit.co/truelight@berhanutadesse.com" method="POST" className="space-y-6">
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_next" value={window.location.href} />
+
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+                    placeholder="your@email.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={4}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition resize-none"
+                    placeholder="Your message..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full inline-flex justify-center items-center px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-105 shadow-lg"
+                >
+                  <Mail className="mr-2" size={20} />
+                  Send Message
+                </button>
+              </form>
+            </div>
           </div>
         </section>
+      </>
+        )}
       </main>
 
       <footer className="bg-slate-900/95 backdrop-blur-sm text-gray-300 py-16 border-t border-amber-500/30">
@@ -411,7 +528,7 @@ function App() {
               <p className="text-sm text-gray-300 mb-4">Speak With Our Consultant Now</p>
               <div className="space-y-4">
                 <a
-                  href="mailto:info@authorberhanutadesse.com"
+                  href="mailto:truelight@berhanutadesse.com"
                   className="flex items-center gap-3 text-gray-300 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded px-1 transition-colors group"
                 >
                   <div className="bg-slate-700 group-hover:bg-amber-500 p-2 rounded-full transition-colors">
@@ -419,7 +536,7 @@ function App() {
                   </div>
                   <div className="text-sm">
                     <p className="text-gray-400 text-xs">Email</p>
-                    <p>info@authorberhanutadesse.com</p>
+                    <p>truelight@berhanutadesse.com</p>
                   </div>
                 </a>
                 <a
@@ -439,9 +556,17 @@ function App() {
           </div>
 
           <div className="border-t border-slate-700 pt-8">
-            <div className="text-center">
+            <div className="text-center group relative inline-block mx-auto">
               <p className="text-gray-400 text-sm mb-2">&copy; 2024 Berhanu Aberra Tadesse. All rights reserved.</p>
               <p className="text-gray-500 text-xs">Bible study leader and educator in the Ethiopian Christian community of Lynwood, Washington</p>
+              <button 
+                onClick={(e) => { e.preventDefault(); window.history.pushState({}, '', '/admin'); setCurrentPage('admin'); window.scrollTo(0, 0); }}
+                className="absolute inset-y-0 -right-8 opacity-0 group-hover:opacity-100 transition-opacity p-2 text-slate-700 hover:text-amber-500 focus:outline-none flex items-center justify-center cursor-pointer"
+                aria-label="Admin Access"
+                title="Admin Login"
+              >
+                <Lock size={14} />
+              </button>
             </div>
           </div>
         </div>

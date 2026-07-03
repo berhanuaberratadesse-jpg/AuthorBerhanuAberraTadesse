@@ -34,7 +34,7 @@ export const authorInfo = {
   currentRole: 'Bible study leader and educator in the Ethiopian Christian community of Lynwood, Washington',
   mission: 'Fulfilling purpose through revelation work and spiritual education',
   contact: {
-    email: 'info@authorberhanutadesse.com',
+    email: 'truelight@berhanutadesse.com',
     phone: '+1-425-879-4630',
     facebook: 'https://www.facebook.com/Berhanutedesseofficial/',
     linkedin: 'https://www.linkedin.com/company/berhanu-tedesse/'
@@ -74,7 +74,7 @@ export const faqData = [
   },
   {
     question: 'How can I contact Berhanu?',
-    answer: `You can contact Berhanu through multiple channels:\n• Email: info@authorberhanutadesse.com\n• Phone: +1-425-879-4630\n• Facebook: Facebook.com/Berhanutedesseofficial\n\nFeel free to reach out with questions, comments, or to discuss the book and ministry work!`
+    answer: `You can contact Berhanu through multiple channels:\n• Email: truelight@berhanutadesse.com\n• Phone: +1-425-879-4630\n• Facebook: Facebook.com/Berhanutedesseofficial\n\nFeel free to reach out with questions, comments, or to discuss the book and ministry work!`
   },
   {
     question: 'Where can I buy the book?',
